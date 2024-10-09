@@ -1,0 +1,38 @@
+<h2 class="mb-5">Mis Contactos</h2>
+
+<div class="text-end">
+    <button class="btn btn-primary" routerLink="/new">
+        Nuevo Contacto
+    </button>
+</div>
+
+<table class="table table-hover">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>NOMBRE</th>
+            <th>CORREO</th>
+            <th>FECHA DE CREACION</th>
+        </tr>
+    </thead>
+    <tbody>
+
+        <tr *ngFor="let contacto of contacts; let i = index">
+            <td>{{contacto.id}}</td>
+            <td>{{contacto.nombre}}</td>
+            <td>{{contacto.correo}}</td>
+            <td>{{contacto.createAt | date: 'dd/MM/yyyy hh:mm a'}}</td>
+            <td class="text-end">
+                <div class="btn-group">
+                    <button class="btn btn-primary" [routerLink]="[contacto.id, 'edit']">
+                        Editar
+                    </button>
+                    <button class="btn btn-danger" (click)="deleteContact(contacto)">
+                        Eliminar
+                    </button>
+                </div>
+            </td>
+        </tr>
+    </tbody>
+
+</table>

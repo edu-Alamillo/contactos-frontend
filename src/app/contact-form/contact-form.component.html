@@ -1,0 +1,53 @@
+<h2 class="mb-5"> 
+    <span *ngIf="contact; else nuevo">Editar</span>
+    <ng-template #nuevo>Nuevo</ng-template>
+    Contacto
+  </h2>
+  
+  <div class="row row-cols-3 justify-content-center">
+  
+    <ng-container *ngIf="form">
+        <div>
+          @if (errors.length) {
+            <div class="alert alert-danger">
+              <p>Han sucedido los siguientes errores</p>
+                <ul>
+                    @for (error of errors; track error) {
+                      <li>{{error}}</li>
+                    }
+                </ul>
+            </div>
+          }
+          <form [formGroup]="form" (ngSubmit)="save()">
+            <div class="mb-3">
+              <label for="name">Nombre</label>
+              <input id="name" type="text" placeholder="Nombre" class="form-control" formControlName="nombre">
+    
+              @if (form.get('nombre')?.hasError('required') && form.get('nombre')?.touched) {
+                <p class="invalid-feedback d-block">El nombre es obligatorio</p>
+              }
+            </div>
+            <div class="mb-3">
+              <label for="email">Email</label>
+              <input id="email" type="email" placeholder="Email" class="form-control" formControlName="correo">
+    
+              @if (form.get('correo')?.hasError('required') && form.get('correo')?.touched) {
+                <p class="invalid-feedback d-block">El correo es obligatorio</p>
+              }
+    
+              @if (form.get('correo')?.hasError('email') && form.get('correo')?.touched) {
+                <p class="invalid-feedback d-block">El correo es invalido</p>
+              }
+            </div>
+            <div class="text-end">
+              <button type="button" class="btn btn-light" routerLink="/">Cancelar</button>
+              <button type="submit" class="btn btn-primary ms-2">
+                <span *ngIf="contact; else nuevo">Actualizar</span>
+                <ng-template #nuevo>Nuevo</ng-template> Contacto
+              </button>
+            </div>
+          </form>
+        </div>
+    </ng-container>
+  </div>
+  
